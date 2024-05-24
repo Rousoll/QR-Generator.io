@@ -60,6 +60,17 @@
   .hidden {
     display: none;
   }
+
+  /* Fix alignment of input fields within contact card */
+  #contactFields div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  #contactFields div label {
+    margin-bottom: 5px;
+  }
 </style>
 </head>
 <body>
@@ -70,8 +81,6 @@
     <select id="codeType" onchange="toggleFields()">
       <option value="url">URL</option>
       <option value="contact">Contact</option>
-      <!-- <option value="text">Text</option> -->
-      <!-- <option value="file">Offline Document</option> -->
     </select>
   </div>
   <div id="contactFields" class="hidden">
@@ -109,10 +118,6 @@
     <label for="data">Data:</label>
     <input type="text" id="data" placeholder="Enter data...">
   </div>
-  <!-- <div id="fileInput" class="hidden">
-    <label for="file">Choose File:</label>
-    <input type="file" id="file">
-  </div> -->
   <button onclick="generateQRCode()">Generate QR Code</button>
   <div>
     <h2>Generated QR Code:</h2>
@@ -127,15 +132,12 @@
     var codeType = document.getElementById('codeType').value;
     var contactFields = document.getElementById('contactFields');
     var dataLabel = document.getElementById('dataLabel');
-    // var fileInput = document.getElementById('fileInput');
     if (codeType === 'contact') {
       contactFields.classList.remove('hidden');
       dataLabel.classList.add('hidden');
-      // fileInput.classList.add('hidden');
     } else {
       contactFields.classList.add('hidden');
       dataLabel.classList.remove('hidden');
-      // fileInput.classList.add('hidden');
     }
   }
 
@@ -167,7 +169,6 @@
   }
 
   function createQRCode(data, qrcodeContainer, downloadLink) {
-    // Clear previous QR code if any
     qrcodeContainer.innerHTML = '';
 
     QRCode.toDataURL(data, { width: 200, height: 200 }, function(err, url) {
@@ -181,7 +182,6 @@
       img.src = url;
       qrcodeContainer.appendChild(img);
 
-      // Show download link
       downloadLink.href = url;
       downloadLink.classList.remove('hidden');
     });
