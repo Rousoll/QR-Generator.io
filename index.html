@@ -13,7 +13,7 @@
     background-image: url('background.jpg');
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,9 +23,10 @@
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
+    max-width: 90%; /* Changed to maximum width */
+    width: 100%; /* Added to ensure full width */
     text-align: center;
+    overflow-y: auto; /* Added to allow vertical scrolling if necessary */
   }
   h1 {
     margin-bottom: 20px;
