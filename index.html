@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR Code Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('C:/Users/Russ/Downloads/18220884_v1016-b-09.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    text-align: left;
+  }
+  input, select, button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  button {
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  #qrcode img {
+    margin-top: 20px;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>QR Code Generator</h1>
+  <div>
+    <label for="codeType">Select Code Type:</label>
+    <select id="codeType" onchange="toggleFields()">
+      <option value="url">URL</option>
+      <option value="contact">Contact</option>
+      <!-- <option value="text">Text</option> -->
+      <!-- <option value="file">Offline Document</option> -->
+    </select>
+  </div>
+  <div id="contactFields" class="hidden">
+    <h2>Contact Information:</h2>
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName">
+    </div>
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName">
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email">
+    </div>
+    <div>
+      <label for="website">Website:</label>
+      <input type="url" id="website">
+    </div>
+    <div>
+      <label for="linkedIn">LinkedIn:</label>
+      <input type="text" id="linkedIn">
+    </div>
+    <div>
+      <label for="twitter">Twitter:</label>
+      <input type="text" id="twitter">
+    </div>
+    <div>
+      <label for="instagram">Instagram:</label>
+      <input type="text" id="instagram">
+    </div>
+  </div>
+  <div id="dataLabel">
+    <label for="data">Data:</label>
+    <input type="text" id="data" placeholder="Enter data...">
+  </div>
+  <!-- <div id="fileInput" class="hidden">
+    <label for="file">Choose File:</label>
+    <input type="file" id="file">
+  </div> -->
+  <button onclick="generateQRCode()">Generate QR Code</button>
+  <div>
+    <h2>Generated QR Code:</h2>
+    <div id="qrcode"></div>
+    <a id="downloadLink" download="qrcode.png" href="#" class="hidden">Download QR Code</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+<script>
+  function toggleFields() {
+    var codeType = document.getElementById('codeType').value;
+    var contactFields = document.getElementById('contactFields');
+    var dataLabel = document.getElementById('dataLabel');
+    // var fileInput = document.getElementById('fileInput');
+    if (codeType === 'contact') {
+      contactFields.classList.remove('hidden');
+      dataLabel.classList.add('hidden');
+      // fileInput.classList.add('hidden');
+    } else {
+      contactFields.classList.add('hidden');
+      dataLabel.classList.remove('hidden');
+      // fileInput.classList.add('hidden');
+    }
+  }
+
+  function generateQRCode() {
+    var data;
+    var codeType = document.getElementById('codeType').value;
+    var qrcodeContainer = document.getElementById('qrcode');
+    var downloadLink = document.getElementById('downloadLink');
+
+    if (!qrcodeContainer) {
+      console.error("QR Code container not found.");
+      return;
+    }
+
+    if (codeType === 'contact') {
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+      var email = document.getElementById('email').value;
+      var website = document.getElementById('website').value;
+      var linkedIn = document.getElementById('linkedIn').value;
+      var twitter = document.getElementById('twitter').value;
+      var instagram = document.getElementById('instagram').value;
+      data = `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nN:${lastName};${firstName};;;\nEMAIL:${email}\nURL:${website}\nEND:VCARD`;
+    } else {
+      data = document.getElementById('data').value;
+    }
+
+    createQRCode(data, qrcodeContainer, downloadLink);
+  }
+
+  function createQRCode(data, qrcodeContainer, downloadLink) {
+    // Clear previous QR code if any
+    qrcodeContainer.innerHTML = '';
+
+    QRCode.toDataURL(data, { width: 200, height: 200 }, function(err, url) {
+      if (err) {
+        console.error(err);
+        alert("Error generating QR code: " + err.message);
+        return;
+      }
+
+      var img = document.createElement('img');
+      img.src = url;
+      qrcodeContainer.appendChild(img);
+
+      // Show download link
+      downloadLink.href = url;
+      downloadLink.classList.remove('hidden');
+    });
+  }
+</script>
+</body>
+</html>
