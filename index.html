@@ -104,15 +104,15 @@
     </div>
     <div>
       <label for="linkedIn">LinkedIn:</label>
-      <input type="text" id="linkedIn">
+      <input type="url" id="linkedIn">
     </div>
     <div>
-      <label for="twitter">Twitter:</label>
-      <input type="text" id="twitter">
+      <label for="twitter">Twitter / X:</label>
+      <input type="url" id="twitter">
     </div>
     <div>
       <label for="instagram">Instagram:</label>
-      <input type="text" id="instagram">
+      <input type="url" id="instagram">
     </div>
   </div>
   <div id="dataLabel">
@@ -161,7 +161,7 @@
       var linkedIn = document.getElementById('linkedIn').value;
       var twitter = document.getElementById('twitter').value;
       var instagram = document.getElementById('instagram').value;
-      data = `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nN:${lastName};${firstName};;;\nEMAIL:${email}\nURL:${website}\nEND:VCARD`;
+      data = `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nN:${lastName};${firstName};;;\nEMAIL:${email}\nURL:${website}\nitem1.URL;type=pref:${linkedIn}\nitem1.X-ABLabel:LinkedIn\nitem2.URL;type=pref:${twitter}\nitem2.X-ABLabel:Twitter\nitem3.URL;type=pref:${instagram}\nitem3.X-ABLabel:Instagram\nEND:VCARD`;
     } else {
       data = document.getElementById('data').value;
     }
