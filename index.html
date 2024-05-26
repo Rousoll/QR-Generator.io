@@ -99,6 +99,10 @@
       <input type="email" id="email">
     </div>
     <div>
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone">
+    </div>
+    <div>
       <label for="website">Website:</label>
       <input type="url" id="website">
     </div>
@@ -157,11 +161,12 @@
       var firstName = document.getElementById('firstName').value;
       var lastName = document.getElementById('lastName').value;
       var email = document.getElementById('email').value;
+      var phone = document.getElementById('phone').value;
       var website = document.getElementById('website').value;
       var linkedIn = document.getElementById('linkedIn').value;
       var twitter = document.getElementById('twitter').value;
       var instagram = document.getElementById('instagram').value;
-      data = `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nN:${lastName};${firstName};;;\nEMAIL:${email}\nURL:${website}\nitem1.URL;type=pref:${linkedIn}\nitem1.X-ABLabel:LinkedIn\nitem2.URL;type=pref:${twitter}\nitem2.X-ABLabel:Twitter\nitem3.URL;type=pref:${instagram}\nitem3.X-ABLabel:Instagram\nEND:VCARD`;
+      data = `BEGIN:VCARD\nVERSION:3.0\nFN:${firstName} ${lastName}\nN:${lastName};${firstName};;;\nEMAIL:${email}\nTEL:${phone}\nURL:${website}\nitem1.URL;type=pref:${linkedIn}\nitem1.X-ABLabel:LinkedIn\nitem2.URL;type=pref:${twitter}\nitem2.X-ABLabel:Twitter\nitem3.URL;type=pref:${instagram}\nitem3.X-ABLabel:Instagram\nEND:VCARD`;
     } else {
       data = document.getElementById('data').value;
     }
@@ -184,9 +189,3 @@
       qrcodeContainer.appendChild(img);
 
       downloadLink.href = url;
-      downloadLink.classList.remove('hidden');
-    });
-  }
-</script>
-</body>
-</html>
