@@ -134,6 +134,44 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RN2Q3DKJK"></script>
+  <!-- Google Tag Manager -->
+<script>
+  // Initialize start time
+  let startTime = Date.now();
+
+  // Function to track time spent on page
+  function trackTimeSpent() {
+      // Calculate time spent
+      let endTime = Date.now();
+      let timeSpent = endTime - startTime;
+
+      // Send time spent data to Google Tag Manager
+      window.dataLayer.push({
+        'event': 'timeSpent',
+        'timeSpent': timeSpent
+      });
+  }
+
+  // Function to track mouse movements
+  function trackMouseMovement(event) {
+      // Extract mouse coordinates
+      let mouseX = event.clientX;
+      let mouseY = event.clientY;
+
+      // Send mouse movement data to Google Tag Manager
+      window.dataLayer.push({
+        'event': 'mouseMovement',
+        'mouseX': mouseX,
+        'mouseY': mouseY
+      });
+  }
+
+  // Event listeners
+  window.addEventListener('beforeunload', trackTimeSpent); // Track time spent on page
+  document.addEventListener('mousemove', trackMouseMovement); // Track mouse movements
+</script>
+<!-- End Custom Tracking Script -->
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
