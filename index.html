@@ -132,9 +132,39 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
-  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RN2Q3DKJK"></script>
-  <!-- Google Tag Manager -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Update the GTM configuration to accept requests from localhost:3000
+  gtag('config', 'G-6RN2Q3DKJK', {
+    'send_page_view': true,
+    'anonymize_ip': true,
+    'cookie_domain': 'auto',
+    'allow_ad_personalization_signals': false,
+    'allow_google_signals': false,
+    'custom_map': {
+      'dimension1': 'timeSpent', // Map custom dimension for time spent on page
+      'dimension2': 'mouseX',     // Map custom dimension for mouse X coordinate
+      'dimension3': 'mouseY'      // Map custom dimension for mouse Y coordinate
+    },
+    'cookie_prefix': '_ga',
+    'cookie_expires': 63072000,
+    'cookie_update': true,
+    'transport_url': 'https://www.google-analytics.com/g/collect',
+    'use_amp_client_id': true,
+    'client_id_storage': 'cookie',
+    'store_gac': false,
+    'conversion_linker': {
+      'domains': ['example.com']
+    },
+    'link_attribution': false,
+    'minimal_script': true
+  });
+</script>
+
 <script>
   // Initialize start time
   let startTime = Date.now();
